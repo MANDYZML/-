@@ -110,7 +110,7 @@ void TestDate1()
 	Date d3(201, 8, 24);
 	d2 = d1 = d3;//赋值运算符重载 d1.operator=(&d1, d3);
 }
-
+ 
 void TestDate2()
 {
 	Date d1(2022, 7, 24);
@@ -127,6 +127,26 @@ void TestDate2()
 	d1.Print();//(d1+4000).Print();
 }
 
+void TestDate3()
+{
+	Date d1(2022, 7, 24);
+	d1 -= 4;
+	d1.Print();//(d1+4).Print();
+
+	d1 -= 40;//跨月
+	d1.Print();//(d1+40).Print();
+
+	d1 -= 400;//跨年
+	d1.Print(); //(d1 + 400).Print();
+
+	d1 -= 4000;//跨闰年
+	d1.Print();//(d1+4000).Print();
+
+	Date d2(2022, 7, 25);
+	Date d3(2023, 2, 15);
+	cout << d2 - d3 << endl;
+	cout << d3 - d2 << endl;
+}
 int main()
 {
 	TestDate1();

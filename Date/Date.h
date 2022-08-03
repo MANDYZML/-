@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 using namespace std;
+#include<assert.h>
 //日期类
 //class Date
 //{
@@ -36,6 +37,9 @@ using namespace std;
 
 class Date
 {
+	//友元函数-这个函数内部可以使用Date对象访问私有保护成员
+	friend ostream& operator<<(ostream& out, const Date& d);
+	friend istream& operator>>(istream& out, const Date& d);
 public:
 	// 获取某年某月的天数
 	int GetMonthDay(int year, int month)
@@ -50,6 +54,21 @@ public:
 		return day;
 	}
 
+	bool CheckDate()
+	{
+		if (_year >= 1
+			&& _month > 0 && _month < 13
+			&& _day >0 && _day <= GetMonthDay(_year, _month))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+
 	//构造会被频繁调用，所以直接放在类里面定义为inline
 	Date(int year = 1, int month = 1, int day = 1)
 	{
@@ -57,6 +76,12 @@ public:
 		_year = year;
 		_month = month;
 		_day = day;
+
+		if (!CheckDate())//比如说输入 32号
+		{
+			Print();
+			cout << "日期非法" << endl;
+		}
 	}
 	//运算符重载 operator加上运算符 是函数名
 	Date& operator=(const Date& d)//d1 = d3 this 是d1 
@@ -66,22 +91,52 @@ public:
 			_month = d._month;
 			_day = d._day;
 		
+
 	}
 
-	void Print();
+	void Print() const;
 
 	//比较两个日期
-	bool operator==(const Date& d);
-	bool operator!=(const Date& d);
-	bool operator>(const Date& d);
-	bool operator>=(const Date& d);
-	bool operator<(const Date& d);
-	bool operator<=(const Date& d);
+	bool operator==(const Date& d) const;
+	bool operator!=(const Date& d) const;
+	bool operator>(const Date& d) const;
+	bool operator>=(const Date& d) const;
+	bool operator<(const Date& d) const;
+	bool operator<=(const Date& d) const;
 	
-	Date operator+(int day);
-	Date& operator+=(int day);
+	Date operator+(int day) const;
+	Date& operator+=(int day) ;//不加const 因为自己要改变
+
+	Date operator-(int day) const;
+	Date& operator-=(int day);
+
+	Date& operator++();
+	Date operator++(int);
+
+	Date& operator--();
+	Date operator--(int);
+
+	//日期相减
+	int operator-(const Date& d) const;
+
 private:
 	int _year;
 	int _month;
 	int _day;
 };
+
+//流插入重载--输出
+inline ostream& operator<<(ostream& out, const Date& d)
+{
+	out << d._year << "年" << d._month << "月" << d._day << "日" << endl;
+	return out;
+}
+
+//流提取重载--输入
+inline istream& operator>>(istream& out, const Date& d)
+{
+	in >> d._year >>d._month >> d._day;
+	assert(d.CheckDate());
+
+	return in;
+}
