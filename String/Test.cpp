@@ -522,11 +522,12 @@ void test_string10()
 	cout << "\0" << endl;//打印不出来 两个字符 \ 0
 }
 
+//分割网址
 void DealUrl(const string& url)
 {
 	//第一个部分 取协议长度
 	size_t pos1 = url.find("://");
-	if (pos1 == string::npos)
+	if (pos1 == string::npos)//如果没有找到的话
 	{
 		cout << "非法url" << endl;
 		return;
@@ -580,11 +581,31 @@ void test_string11()
 
 	//把网址分割成三个部分
 	DealUrl(url1);
+	DealUrl(url2);
 	
 }
 
-int main()
+void test_string12()
 {
+	int ival;
+	double dval;
+	cin >> ival >> dval;
+	//转成字符串
+	string istr = to_string(ival);
+	string dstr = to_string(dval);
+
+	cout << istr << endl;
+	cout << dstr << endl;
+
+	//把字符串转回 整数
+	istr = "9999";
+	dstr = "9999.99";
+	ival = stoi(istr);
+	dval = stod(dstr);
+}
+
+//int main()
+//{
 	//test_string1();
 	//test_string2();
 	//test_string3();
@@ -595,6 +616,22 @@ int main()
 	//test_string8();
 	//test_string9();
 	//test_string10();
-	test_string11();
+	//test_string11();
+//	test_string12();
+//	return 0;
+//}
+
+#include "string.h"
+int main()
+{
+	try
+	{ 
+		bit::test_string1();
+	}
+	catch (const exception& e)
+	{
+		cout << e.what() << endl;
+
 	return 0;
+
 }
