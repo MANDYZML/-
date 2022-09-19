@@ -1,0 +1,4 @@
+﻿  Test.cpp
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Code\Training\String\string.h(131,12): error C2374: “tmp”: 重定义；多次初始化
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Code\Training\String\string.h(130): message : 参见“tmp”的声明
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Code\Training\String\Test.cpp(626): fatal error C1075: “{”: 未找到匹配令牌
